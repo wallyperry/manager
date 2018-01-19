@@ -1,5 +1,6 @@
 package ren.perry.manage.api;
 
+import ren.perry.manage.bean.PeanutRechargeListBean;
 import ren.perry.manage.bean.PeanutUserEnableBean;
 import ren.perry.manage.bean.PeanutUserEndDateBean;
 import ren.perry.manage.bean.PeanutUserListBean;
@@ -49,4 +50,17 @@ public interface ApiService {
     Observable<PeanutUserEndDateBean> peanutUserEndDate(
             @Field("deviceId") String deviceId,
             @Field("endDate") String endDate);
+
+    /**
+     * 充值列表
+     *
+     * @param type     类型(1=全部订单，2=待确认，3=单用户)
+     * @param deviceId if(type==3)deviceId not null!
+     * @return PeanutRechargeListBean
+     */
+    @POST("/Api/Home/Index/rechargeList")
+    @FormUrlEncoded
+    Observable<PeanutRechargeListBean> peanutRechargeList(
+            @Field("type") int type,
+            @Field("deviceId") String deviceId);
 }

@@ -43,10 +43,26 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/tvRechargeConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_height"
+                android:background="@color/white"
+                android:clickable="true"
+                android:drawableEnd="@mipmap/icon_to_right_more"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:paddingEnd="@dimen/dp_16"
+                android:paddingStart="@dimen/dp_16"
+                android:text="充值确认"
+                android:textColor="@color/color_6"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
                 android:id="@+id/tvVersion"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/toolbar_height"
-                android:layout_marginTop="1px"
+                android:layout_marginTop="@dimen/dp_10"
                 android:background="@color/white"
                 android:clickable="true"
                 android:drawableEnd="@mipmap/icon_to_right_more"

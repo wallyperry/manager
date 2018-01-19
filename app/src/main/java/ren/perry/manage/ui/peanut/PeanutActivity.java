@@ -35,16 +35,21 @@ public class PeanutActivity extends BaseMvpActivity {
         return null;
     }
 
-    @OnClick({R.id.tvBack, R.id.tvUser, R.id.tvVersion})
+    @OnClick({R.id.tvBack, R.id.tvUser, R.id.tvRechargeConfirm, R.id.tvVersion})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tvBack:
+            case R.id.tvBack:       //返回
                 finish();
                 break;
-            case R.id.tvUser:
+            case R.id.tvUser:       //用户管理
                 startActivity(new Intent(this, PeanutUserActivity.class));
                 break;
-            case R.id.tvVersion:
+            case R.id.tvRechargeConfirm:    //充值确认
+                Intent intent = new Intent(this, PeanutRechargeActivity.class);
+                intent.putExtra(PeanutRechargeActivity.KEY_TYPE, PeanutRechargeActivity.TYPE_CONFIRM);
+                startActivity(intent);
+                break;
+            case R.id.tvVersion:    //版本管理
                 break;
         }
     }

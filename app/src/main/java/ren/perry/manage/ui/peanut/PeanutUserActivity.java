@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -112,18 +111,12 @@ public class PeanutUserActivity extends BaseMvpActivity<PeanutUserPresenter> imp
 
     @Override
     public void onEnableSuccess(PeanutUserEnableBean bean, int position) {
-        if (bean.getCode() != 1) {
-            Switch switchState = (Switch) rvAdapter.getViewByPosition(recyclerView, position, R.id.switchState);
-            assert switchState != null;
-            switchState.setChecked(!switchState.isChecked());
-        }
+        mPresenter.peanutUserList();
     }
 
     @Override
     public void onEnableError(ApiException.ResponseException e, int position) {
-        Switch switchState = (Switch) rvAdapter.getViewByPosition(recyclerView, position, R.id.switchState);
-        assert switchState != null;
-        switchState.setChecked(!switchState.isChecked());
+        mPresenter.peanutUserList();
     }
 
     @Override

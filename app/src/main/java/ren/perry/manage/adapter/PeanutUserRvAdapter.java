@@ -33,11 +33,12 @@ public class PeanutUserRvAdapter extends BaseQuickAdapter<PeanutUserListBean.Dat
     @Override
     protected void convert(BaseViewHolder helper, PeanutUserListBean.DataBean item) {
 
+        String nameStr = item.getId() + "（" + item.getDevice_model() + ")";
         String startTimeStr = "创建：" + DateUtils.stampToDate(item.getCreateDate());
         String endTimeStr = "到期：" + DateUtils.stampToDate(item.getEndDate());
         boolean enable = "1".equals(item.getState());
 
-        helper.setText(R.id.tvModel, item.getDevice_model())
+        helper.setText(R.id.tvModel, nameStr)
                 .setText(R.id.tvDeviceId, item.getDevice_id())
                 .setText(R.id.tvPhone, item.getPhone())
                 .setText(R.id.tvStartTime, startTimeStr)

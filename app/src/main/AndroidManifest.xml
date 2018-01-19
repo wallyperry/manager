@@ -25,6 +25,7 @@
         </activity>
         <activity android:name=".ui.peanut.PeanutActivity" />
         <activity android:name=".ui.peanut.PeanutUserActivity" />
+        <activity android:name=".ui.peanut.PeanutRechargeActivity" />
     </application>
 
 </manifest>
