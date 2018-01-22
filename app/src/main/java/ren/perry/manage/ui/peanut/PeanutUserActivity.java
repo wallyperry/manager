@@ -4,7 +4,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -33,7 +32,7 @@ import ren.perry.mvplibrary.net.ApiException;
 
 public class PeanutUserActivity extends BaseMvpActivity<PeanutUserPresenter> implements
         PeanutUserContract.View, BaseQuickAdapter.OnItemChildClickListener,
-        PeanutUserRvAdapter.CheckedListener, DatePickerCallback, TimePickerCallback {
+        DatePickerCallback, TimePickerCallback {
     @Bind(R.id.tvTitle)
     TextView tvTitle;
     @Bind(R.id.recyclerView)
@@ -56,13 +55,12 @@ public class PeanutUserActivity extends BaseMvpActivity<PeanutUserPresenter> imp
         refreshLayout.setColorSchemeResources(R.color.black, R.color.black, R.color.black);
         refreshLayout.setOnRefreshListener(this::fetchData);
 
-        rvAdapter = new PeanutUserRvAdapter();
+        rvAdapter = new PeanutUserRvAdapter(mPresenter);
         rvAdapter.bindToRecyclerView(recyclerView);
         LinearLayoutManager lm = new LinearLayoutManager(this);
         lm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(lm);
         rvAdapter.setOnItemChildClickListener(this);
-        rvAdapter.setOnCheckedChangeListener(this);
         recyclerView.setAdapter(rvAdapter);
 
         refreshLayout.post(() -> {
@@ -110,13 +108,11 @@ public class PeanutUserActivity extends BaseMvpActivity<PeanutUserPresenter> imp
     }
 
     @Override
-    public void onEnableSuccess(PeanutUserEnableBean bean, int position) {
-        mPresenter.peanutUserList();
+    public void onEnableSuccess(PeanutUserEnableBean bean) {
     }
 
     @Override
-    public void onEnableError(ApiException.ResponseException e, int position) {
-        mPresenter.peanutUserList();
+    public void onEnableError(ApiException.ResponseException e) {
     }
 
     @Override
@@ -149,15 +145,6 @@ public class PeanutUserActivity extends BaseMvpActivity<PeanutUserPresenter> imp
     }
 
     @Override
-    public void onCheckedListener(PeanutUserListBean.DataBean item, CompoundButton cButton, boolean b, int position) {
-        switch (cButton.getId()) {
-            case R.id.switchState:
-                mPresenter.peanutUserEnable(item.getDevice_id(), b ? 1 : 0, position);
-                break;
-        }
-    }
-
-    @Override
     public void onDateSet(long date) {
     }
 
@@ -165,5 +152,4 @@ public class PeanutUserActivity extends BaseMvpActivity<PeanutUserPresenter> imp
     public void onTimeSet(long time, long d) {
         mPresenter.peanutUserEndDate(currentDeviceId, d / 1000 + "");
     }
-
 }

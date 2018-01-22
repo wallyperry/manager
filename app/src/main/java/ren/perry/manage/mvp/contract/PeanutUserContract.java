@@ -22,9 +22,9 @@ public interface PeanutUserContract {
 
         void onUserListError(ApiException.ResponseException e);
 
-        void onEnableSuccess(PeanutUserEnableBean bean, int position);
+        void onEnableSuccess(PeanutUserEnableBean bean);
 
-        void onEnableError(ApiException.ResponseException e, int position);
+        void onEnableError(ApiException.ResponseException e);
 
         void onEndDateSuccess(PeanutUserEndDateBean bean);
 
@@ -42,7 +42,7 @@ public interface PeanutUserContract {
     abstract class Presenter extends BasePresenter<View, Model> {
         public abstract void peanutUserList();
 
-        public abstract void peanutUserEnable(String deviceId, int state, int position);
+        public abstract void peanutUserEnable(String deviceId, int state);
 
         public abstract void peanutUserEndDate(String deviceId, String endDate);
     }

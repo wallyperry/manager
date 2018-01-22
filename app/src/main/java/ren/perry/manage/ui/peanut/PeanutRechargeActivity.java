@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import ren.perry.manage.R;
 import ren.perry.manage.adapter.PeanutRechargeRvAdapter;
 import ren.perry.manage.base.BaseMvpActivity;
@@ -138,5 +139,10 @@ public class PeanutRechargeActivity extends BaseMvpActivity<PeanutRechargePresen
                 toastShow("正在开发中");
                 break;
         }
+    }
+
+    @OnClick(R.id.tvBack)
+    public void onViewClicked() {
+        finish();
     }
 }

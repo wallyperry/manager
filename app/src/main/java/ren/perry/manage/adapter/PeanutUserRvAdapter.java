@@ -1,12 +1,11 @@
 package ren.perry.manage.adapter;
 
-import android.widget.CompoundButton;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import ren.perry.manage.R;
 import ren.perry.manage.bean.PeanutUserListBean;
+import ren.perry.manage.mvp.presenter.PeanutUserPresenter;
 import ren.perry.manage.utils.DateUtils;
 
 /**
@@ -16,18 +15,12 @@ import ren.perry.manage.utils.DateUtils;
  */
 
 public class PeanutUserRvAdapter extends BaseQuickAdapter<PeanutUserListBean.DataBean, BaseViewHolder> {
-    public PeanutUserRvAdapter() {
+
+    private PeanutUserPresenter mPresenter;
+
+    public PeanutUserRvAdapter(PeanutUserPresenter mPresenter) {
         super(R.layout.item_peanut_user_rv);
-    }
-
-    private CheckedListener listener;
-
-    public void setOnCheckedChangeListener(CheckedListener listener) {
-        this.listener = listener;
-    }
-
-    public interface CheckedListener {
-        void onCheckedListener(PeanutUserListBean.DataBean item, CompoundButton cButton, boolean b, int position);
+        this.mPresenter = mPresenter;
     }
 
     @Override
@@ -45,11 +38,13 @@ public class PeanutUserRvAdapter extends BaseQuickAdapter<PeanutUserListBean.Dat
                 .setText(R.id.tvEndTime, endTimeStr)
                 .setText(R.id.tvInfo, item.getInfo())
                 .setVisible(R.id.tvInfo, item.getInfo().length() >= 1)
-                .setChecked(R.id.switchState, enable)
                 .addOnClickListener(R.id.tvSetEnd)
-                .setOnCheckedChangeListener(R.id.switchState, (compoundButton, b) -> {
-                    if (listener != null) {
-                        listener.onCheckedListener(item, compoundButton, b, helper.getAdapterPosition());
+                .setChecked(R.id.switchState, enable)
+                .setOnCheckedChangeListener(R.id.switchState, (cButton, b) -> {
+                    if (enable != b) {
+                        mPresenter.peanutUserEnable(item.getDevice_id(), b ? 1 : 0);
+                    } else {
+                        cButton.setChecked(enable);
                     }
                 });
     }

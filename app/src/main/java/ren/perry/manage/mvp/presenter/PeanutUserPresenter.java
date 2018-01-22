@@ -44,17 +44,17 @@ public class PeanutUserPresenter extends PeanutUserContract.Presenter {
     }
 
     @Override
-    public void peanutUserEnable(String deviceId, int state, int position) {
+    public void peanutUserEnable(String deviceId, int state) {
         addSubscribe(mModel.peanutUserEnable(deviceId, state)
                 .subscribe(new BaseSubscriber<PeanutUserEnableBean>() {
                     @Override
                     public void onError(ApiException.ResponseException e) {
-                        mView.onEnableError(e, position);
+                        mView.onEnableError(e);
                     }
 
                     @Override
                     public void onNext(PeanutUserEnableBean bean) {
-                        mView.onEnableSuccess(bean, position);
+                        mView.onEnableSuccess(bean);
                     }
                 }));
     }
