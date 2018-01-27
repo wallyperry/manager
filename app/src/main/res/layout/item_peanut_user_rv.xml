@@ -102,13 +102,29 @@
                     android:textColor="@color/color_8"
                     android:textSize="@dimen/sp_12" />
 
-                <TextView
-                    android:id="@+id/tvEndTime"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_2"
-                    android:textColor="@color/color_8"
-                    android:textSize="@dimen/sp_12" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvEndTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_8"
+                        android:textSize="@dimen/sp_12" />
+
+                    <TextView
+                        android:id="@+id/tvIsEnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_4"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/sp_12" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
