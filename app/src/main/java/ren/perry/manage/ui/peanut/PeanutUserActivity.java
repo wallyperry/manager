@@ -138,7 +138,7 @@ public class PeanutUserActivity extends BaseMvpActivity<PeanutUserPresenter> imp
                         DateTimeBuilder.newInstance()
                                 .withTime(true)
                                 .with24Hours(true)
-                                .withMinDate(Long.parseLong(item.getEndDate()) * 1000 + 86400000)
+//                                .withMinDate(Long.parseLong(item.getEndDate()) * 1000 + 86400000)
                 ).show(getSupportFragmentManager(), "DatePickerFragmentDialog");
                 break;
         }

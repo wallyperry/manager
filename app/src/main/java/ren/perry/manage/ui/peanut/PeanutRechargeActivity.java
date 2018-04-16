@@ -16,6 +16,7 @@ import ren.perry.manage.base.BaseMvpActivity;
 import ren.perry.manage.bean.PeanutRechargeListBean;
 import ren.perry.manage.mvp.contract.PeanutRechargeContract;
 import ren.perry.manage.mvp.presenter.PeanutRechargePresenter;
+import ren.perry.manage.utils.UiUtils;
 import ren.perry.mvplibrary.net.ApiException;
 
 /**
@@ -41,6 +42,8 @@ public class PeanutRechargeActivity extends BaseMvpActivity<PeanutRechargePresen
     private String cUserId;
 
     private PeanutRechargeRvAdapter rvAdapter;
+    private View errorView;
+    private TextView tvErrorViewMsg;
 
     /**
      * 全部记录
@@ -62,6 +65,8 @@ public class PeanutRechargeActivity extends BaseMvpActivity<PeanutRechargePresen
 
     @Override
     protected void initView() {
+        errorView = UiUtils.getView(R.layout.view_rv_error);
+        tvErrorViewMsg = errorView.findViewById(R.id.tvMsg);
         cType = getIntent().getIntExtra(KEY_TYPE, 0);
         switch (cType) {
             case TYPE_ALL:
@@ -113,14 +118,16 @@ public class PeanutRechargeActivity extends BaseMvpActivity<PeanutRechargePresen
             case 200:
                 if (bean.getData() == null || bean.getData().size() < 1) {
                     rvAdapter.setNewData(null);
-                    rvAdapter.setEmptyView(R.layout.view_rv_error);
+                    tvErrorViewMsg.setText(bean.getError());
+                    rvAdapter.setEmptyView(errorView);
                     return;
                 }
                 rvAdapter.setNewData(bean.getData());
                 break;
             case 201:
                 rvAdapter.setNewData(null);
-                rvAdapter.setEmptyView(R.layout.view_rv_error);
+                tvErrorViewMsg.setText(bean.getError());
+                rvAdapter.setEmptyView(errorView);
                 break;
         }
     }
@@ -129,7 +136,8 @@ public class PeanutRechargeActivity extends BaseMvpActivity<PeanutRechargePresen
     public void onRechargeListError(ApiException.ResponseException e) {
         refreshLayout.setRefreshing(false);
         rvAdapter.setNewData(null);
-        rvAdapter.setEmptyView(R.layout.view_rv_error);
+        tvErrorViewMsg.setText(e.getMessage());
+        rvAdapter.setEmptyView(errorView);
     }
 
     @Override
